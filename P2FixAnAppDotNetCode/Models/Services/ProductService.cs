@@ -1,4 +1,5 @@
 ﻿using P2FixAnAppDotNetCode.Models.Repositories;
+using System.Linq;
 
 namespace P2FixAnAppDotNetCode.Models.Services
 {
@@ -29,11 +30,9 @@ namespace P2FixAnAppDotNetCode.Models.Services
         /// <summary>
         /// Get a product form the inventory by its id
         /// </summary>
-        public Product GetProductById(int id)
-        {
-            // TODO implement the method
-            return null;
-        }
+        /// <returns>The product if it exists or null</returns>
+        public Product GetProductById(int id) =>
+            this.GetAllProducts().SingleOrDefault(p => p.Id == id);
 
         /// <summary>
         /// Update the quantities left for each product in the inventory depending of ordered the quantities
