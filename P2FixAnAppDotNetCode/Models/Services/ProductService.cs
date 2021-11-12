@@ -50,11 +50,6 @@ namespace P2FixAnAppDotNetCode.Models.Services
             {
                 this._productRepository.UpdateProductStocks(line.Product.Id, line.Quantity);
             }
-
-            this._orderRepository.Save(new Order()
-            {
-                
-            });
         }
     }
 }
