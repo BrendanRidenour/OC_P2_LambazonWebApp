@@ -41,7 +41,7 @@ namespace P2FixAnAppDotNetCode
                 .AddDataAnnotationsLocalization();
 
             services.Configure<RequestLocalizationOptions>(opts =>
-            { 
+            {
                 var supportedCultures = new List<CultureInfo>
                 {
                     new CultureInfo("en-GB"),
