@@ -88,10 +88,19 @@ namespace P2FixAnAppDotNetCode.Models
         /// <summary>
         /// Get average value of a cart
         /// </summary>
+        /// <returns>Returns the average value of all items in the cart</returns>
         public double GetAverageValue()
         {
-            // TODO implement the method
-            return 0.0;
+            var total = this.GetTotalValue();
+
+            var itemsCount = 0;
+
+            foreach (var line in this.GetCartLineList())
+            {
+                itemsCount += line.Quantity;
+            }
+
+            return total / itemsCount;
         }
 
         /// <summary>
