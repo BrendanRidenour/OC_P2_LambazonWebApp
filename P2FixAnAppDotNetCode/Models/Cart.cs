@@ -62,8 +62,9 @@ namespace P2FixAnAppDotNetCode.Models
         }
 
         /// <summary>
-        /// Removes a product form the cart
+        /// Removes a product from the cart
         /// </summary>
+        /// <param name="product">The product to remove</param>
         public void RemoveLine(Product product) =>
             GetCartLineList().RemoveAll(l => l.Product.Id == product.Id);
 
@@ -91,20 +92,20 @@ namespace P2FixAnAppDotNetCode.Models
         /// <returns>Returns the average value of all items in the cart</returns>
         public double GetAverageValue()
         {
-            var total = this.GetTotalValue();
+            var totalValue = this.GetTotalValue();
 
-            var itemsCount = 0;
+            var totalQuantity = 0;
 
             foreach (var line in this.GetCartLineList())
             {
-                itemsCount += line.Quantity;
+                totalQuantity += line.Quantity;
             }
 
-            return total / itemsCount;
+            return totalValue / totalQuantity;
         }
 
         /// <summary>
-        /// Looks after a given product in the cart and returns if it finds it
+        /// Looks for a given product in the cart and returns it if found
         /// </summary>
         /// <returns>The product if it exists or null</returns>
         public Product FindProductInCartLines(int productId)
@@ -115,15 +116,17 @@ namespace P2FixAnAppDotNetCode.Models
         }
 
         /// <summary>
-        /// Get a specifid cartline by its index
+        /// Get a specific cartline by its index
         /// </summary>
+        /// <param name="index">The index of the cartline to return</param>
+        /// <returns>The cartline found at the given index</returns>
         public CartLine GetCartLineByIndex(int index)
         {
             return Lines.ToArray()[index];
         }
 
         /// <summary>
-        /// Clears a the cart of all added products
+        /// Clears the cart of all added products
         /// </summary>
         public void Clear()
         {

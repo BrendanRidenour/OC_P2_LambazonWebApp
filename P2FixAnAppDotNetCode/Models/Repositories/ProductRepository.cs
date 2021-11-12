@@ -12,6 +12,7 @@ namespace P2FixAnAppDotNetCode.Models.Repositories
 
         public ProductRepository()
         {
+            // Only initialize the list of products if it hasn't been initialized already
             if (_products == null)
             {
                 _products = new List<Product>();
@@ -35,8 +36,13 @@ namespace P2FixAnAppDotNetCode.Models.Repositories
         /// <summary>
         /// Get all products from the inventory
         /// </summary>
+        /// <returns>An array of all products in the inventory</returns>
         public Product[] GetAllProducts()
         {
+            // TODO:
+            // Ask Chris whether the product repo and interface should also be changed from a
+            // Product[] to a List<Product>, or if there are business reasons to keep this repo
+            // an array.
             List<Product> list = _products.Where(p => p.Stock > 0).OrderBy(p => p.Name).ToList();
             return list.ToArray();
         }
@@ -47,7 +53,7 @@ namespace P2FixAnAppDotNetCode.Models.Repositories
         public void UpdateProductStocks(int productId, int quantityToRemove)
         {
             Product product = _products.First(p => p.Id == productId);
-            product.Stock = product.Stock - quantityToRemove;
+            product.Stock -= quantityToRemove;
 
             if (product.Stock == 0)
                 _products.Remove(product);

@@ -22,6 +22,7 @@ namespace P2FixAnAppDotNetCode.Models.Services
         /// <summary>
         /// Saves an order
         /// </summary>
+        /// <param name="order">The order to save</param>
         public void SaveOrder(Order order)
         {
             order.Date = DateTime.Now;

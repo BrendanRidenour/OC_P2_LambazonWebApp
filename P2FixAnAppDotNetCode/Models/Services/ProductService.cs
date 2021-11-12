@@ -20,24 +20,26 @@ namespace P2FixAnAppDotNetCode.Models.Services
         }
 
         /// <summary>
-        /// Get all product from the inventory
+        /// Get all products from the inventory
         /// </summary>
-        /// <returns>A list of all Products</returns>
+        /// <returns>A list of all products</returns>
         public List<Product> GetAllProducts()
         {
             return _productRepository.GetAllProducts().ToList();
         }
 
         /// <summary>
-        /// Get a product form the inventory by its id
+        /// Get a product from the inventory by its id
         /// </summary>
+        /// <param name="id">The id of the product to return</param>
         /// <returns>The product if it exists or null</returns>
         public Product GetProductById(int id) =>
             this.GetAllProducts().SingleOrDefault(p => p.Id == id);
 
         /// <summary>
-        /// Update the quantities left for each product in the inventory depending of ordered the quantities
+        /// Update the quantities left for each product in the inventory depending on the ordered quantities
         /// </summary>
+        /// <param name="cart">The cart to update product quantities for</param>
         /// <exception cref="ArgumentNullException">Thrown if cart is null</exception>
         public void UpdateProductQuantities(Cart cart)
         {

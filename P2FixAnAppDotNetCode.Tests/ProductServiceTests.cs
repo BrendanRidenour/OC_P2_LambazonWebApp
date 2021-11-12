@@ -12,7 +12,6 @@ namespace P2FixAnAppDotNetCode.Tests
     /// </summary>
     public class ProductServiceTests
     {
-
         [Fact]
         public void Product()
         {
