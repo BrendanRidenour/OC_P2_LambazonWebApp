@@ -106,10 +106,12 @@ namespace P2FixAnAppDotNetCode.Models
         /// <summary>
         /// Looks after a given product in the cart and returns if it finds it
         /// </summary>
+        /// <returns>The product if it exists or null</returns>
         public Product FindProductInCartLines(int productId)
         {
-            // TODO implement the method
-            return null;
+            var cart = this.GetCartLineList();
+
+            return cart.SingleOrDefault(l => l.Product.Id == productId)?.Product;
         }
 
         /// <summary>
