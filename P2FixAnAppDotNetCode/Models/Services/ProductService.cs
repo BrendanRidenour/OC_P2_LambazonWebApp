@@ -1,4 +1,5 @@
 ﻿using P2FixAnAppDotNetCode.Models.Repositories;
+using System;
 using System.Linq;
 
 namespace P2FixAnAppDotNetCode.Models.Services
@@ -37,10 +38,23 @@ namespace P2FixAnAppDotNetCode.Models.Services
         /// <summary>
         /// Update the quantities left for each product in the inventory depending of ordered the quantities
         /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown if cart is null</exception>
         public void UpdateProductQuantities(Cart cart)
         {
-            // TODO implement the method
-            // update product inventory by using _productRepository.UpdateProductStocks() method.
+            if (cart is null)
+            {
+                throw new ArgumentNullException(nameof(cart));
+            }
+
+            foreach (var line in cart.Lines)
+            {
+                this._productRepository.UpdateProductStocks(line.Product.Id, line.Quantity);
+            }
+
+            this._orderRepository.Save(new Order()
+            {
+                
+            });
         }
     }
 }
