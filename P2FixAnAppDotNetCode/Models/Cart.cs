@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace P2FixAnAppDotNetCode.Models
@@ -9,25 +10,55 @@ namespace P2FixAnAppDotNetCode.Models
     public class Cart : ICart
     {
         /// <summary>
-        /// Read-only property for dispaly only
+        /// Read-only property for display only
         /// </summary>
         public IEnumerable<CartLine> Lines => GetCartLineList();
 
         /// <summary>
         /// Return the actual cartline list
         /// </summary>
-        /// <returns></returns>
-        private List<CartLine> GetCartLineList()
-        {
-            return new List<CartLine>();
-        }
+        /// <returns>Returns the working cartline list</returns>
+        private List<CartLine> GetCartLineList() => this._cartLineList;
 
         /// <summary>
-        /// Adds a product in the cart or increment its quantity in the cart if already added
+        /// Saves the state of the working cartline list
+        /// </summary>
+        private readonly List<CartLine> _cartLineList = new List<CartLine>();
+
+        /// <summary>
+        /// Adds a product to the cart or increments the product's quantity if it already exists
         /// </summary>//
+        /// <param name="product">The product to add to cart</param>
+        /// <param name="quantity">The quantity to add to cart</param>
+        /// <exception cref="ArgumentNullException">Thrown when the product argument is null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the quantity is less than 0.</exception>
         public void AddItem(Product product, int quantity)
         {
-            // TODO implement the method
+            // Check product for null and throw if null
+            if (product == null)
+                throw new ArgumentNullException(nameof(product));
+
+            // Check quantity for positive integer and throw if less than 0
+            if (quantity < 0)
+                throw new ArgumentOutOfRangeException(nameof(quantity), message: $"The {nameof(quantity)} argument cannot be less than 0.");
+
+            var cart = this.GetCartLineList();
+            var existingItem = cart.SingleOrDefault(l => l.Product.Id == product.Id);
+
+            // If product doesn't already exist in the list, add product to the list
+            if (existingItem == null)
+            {
+                cart.Add(new CartLine()
+                {
+                    Product = product,
+                    Quantity = quantity,
+                });
+            }
+            // If product already exists in the list, adjust the quantity
+            else
+            {
+                existingItem.Quantity += quantity;
+            }
         }
 
         /// <summary>
