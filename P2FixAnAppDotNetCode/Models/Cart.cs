@@ -107,6 +107,7 @@ namespace P2FixAnAppDotNetCode.Models
         /// <summary>
         /// Looks for a given product in the cart and returns it if found
         /// </summary>
+        /// <param name="productId">The product id to return if found</param>
         /// <returns>The product if it exists or null</returns>
         public Product FindProductInCartLines(int productId)
         {
